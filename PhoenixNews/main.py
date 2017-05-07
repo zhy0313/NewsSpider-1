@@ -1,4 +1,5 @@
 from PhoenixNews import theme_spider
+from PhoenixNews import page_spider
 
 theme_url_list = [
     {'name':'大陆',   'href':"http://news.ifeng.com/mainland/",           'judge':"http://news.ifeng.com/a/\d+" },#0
@@ -19,12 +20,20 @@ theme_url_list = [
     {'name': '公益',  'href': 'http://gongyi.ifeng.com/',                 'judge': "http://gongyi.ifeng.com/a/"},#15
     {'name': '旅游',  'href': 'http://travel.ifeng.com/',                 'judge': "http://travel.ifeng.com/a/"},#16
     {'name': '健康',  'href': 'http://fashion.ifeng.com/health/',         'judge': "http://fashion.ifeng.com/a/"},#17
-    {'name': '博客',  'href': 'http://blog.ifeng.com/',                   'judge': "http://blog.ifeng.com/article/"},#18
-    {'name':'汽车',   'href':'http://auto.ifeng.com/',                    'judge':"http://auto.ifeng.com/[0-9a-zA-Z\_/]*/\d+.shtml"},#19
+    #{'name': '博客',  'href': 'http://blog.ifeng.com/',                   'judge': "http://blog.ifeng.com/article/"},#18
+    #{'name':'汽车',   'href':'http://auto.ifeng.com/',                    'judge':"http://auto.ifeng.com/[0-9a-zA-Z\_/]*/\d+.shtml"},#19
 ]
 
-t_spider = theme_spider.ThemeSpider(theme_url_list[19]['href'],theme_url_list[19]['judge'])
-linkList = t_spider.getLinkList()
+for theme in theme_url_list:
+    t_spider = theme_spider.ThemeSpider(theme['href'],theme['judge'])
+    linkList = t_spider.getLinkList()
+    i = 0
+    for link in linkList:
+        i += 1
+        print(i)
+        print("%s %s" % (link['title'] , link['href']))
+        page_s = page_spider.PageSpider(link['href'])
+        page_s.getContent()
 
-for link in linkList:
-    print("%s %s" % (link['title'] , link['href']))
+    print("%d lines" % len(linkList))
+

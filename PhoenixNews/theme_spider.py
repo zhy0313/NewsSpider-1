@@ -14,6 +14,7 @@ class ThemeSpider(object):
         linkList = []
         if response.getcode() != 200:
             print("fail to get to first page")
+            return linkList
         html_cont = response.read()
         soup = BeautifulSoup(html_cont, 'html.parser', from_encoding='utf-8')
 
