@@ -1,6 +1,5 @@
 from urllib import request
 from bs4 import BeautifulSoup
-from http import cookiejar
 
 
 class PageSpider(object):
@@ -35,6 +34,8 @@ class PageSpider(object):
                     if(img != None):
                         contents.append(['img', img['src']])
                     #正文
+                    elif con.strong is not None:
+                        contents.append(['strong', con.text.strip()])
                     else:
                         contents.append(['p', con.text.strip()])
 
@@ -68,9 +69,3 @@ class PageSpider(object):
         except:
             print("Something wrong!")
             return None
-
-
-
-
-
-
