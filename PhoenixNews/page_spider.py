@@ -18,6 +18,7 @@ class PageSpider(object):
 
             main_content = soup.find('div', id = 'main_content')
             titleDiv = soup.find('div', id="titL")
+            head3 = soup.find('div',class_ = "yc_tit")
 
             if main_content is not None:
                 #获取文章标题
@@ -39,10 +40,10 @@ class PageSpider(object):
                     else:
                         contents.append(['p', con.text.strip()])
 
-                print('title: ' + title)
-                print('datetime: ' + datetime)
-                for c in contents:
-                    print("%s %s" % (c[0], c[1]))
+                # print('title: ' + title)
+                # print('datetime: ' + datetime)
+                # for c in contents:
+                #     print("%s %s" % (c[0], c[1]))
 
                 return {'title': title, 'datetime': datetime, 'content': contents}
             elif titleDiv is not None:
@@ -57,13 +58,30 @@ class PageSpider(object):
                 #获取图片
                 img = head.find('meta',itemprop = 'image')['content']
 
-                print('title: ' + title)
-                print('datetime: ' + datetime)
-                contents = [['img',img],['p',p]]
-                for c in contents:
-                    print("%s %s" % (c[0], c[1]))
+                contents = [['img', img], ['p', p]]
+                # print('title: ' + title)
+                # print('datetime: ' + datetime)
+                # for c in contents:
+                #     print("%s %s" % (c[0], c[1]))
 
                 return {'title': title, 'datetime': datetime, 'content': contents}
+            elif head3 is not None:
+                #标题
+                title = head3.find('h1').text
+                #日期及时间
+                datetime = head3.find('p').find('span').text
+                #正文
+                contents = []
+                soup_contents = soup.find('div',id = "yc_con_txt").find_all('p')
+                for con in soup_contents:
+                    img = con.find('img')
+                    if img is not None:
+                        contents.append(['img',img['src']])
+                    elif con.strong is not None:
+                        contents.append(['strong',con.text.strip()])
+                    else:
+                        contents.append(['p',con.text.strip()])
+                return {'title':title, 'datetime':datetime, 'content':contents}
             else :
                 return None
         except:

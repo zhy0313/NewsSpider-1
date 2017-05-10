@@ -1,5 +1,6 @@
 from PhoenixNews import theme_spider
 from PhoenixNews import page_spider
+from PhoenixNews import mongodb_driver
 
 theme_url_list = [
     {'name':'大陆',   'href':"http://news.ifeng.com/mainland/",           'judge':"http://news.ifeng.com/a/\d+" },#0
@@ -24,16 +25,34 @@ theme_url_list = [
     #{'name':'汽车',   'href':'http://auto.ifeng.com/',                    'judge':"http://auto.ifeng.com/[0-9a-zA-Z\_/]*/\d+.shtml"},#19
 ]
 
+# for theme in theme_url_list:
+#     t_spider = theme_spider.ThemeSpider(theme['href'],theme['judge'])
+#     linkList = t_spider.getLinkList()
+#     i = 0
+#     for link in linkList:
+#         i += 1
+#         print(i)
+#         print("%s %s" % (link['title'] , link['href']))
+#         page_s = page_spider.PageSpider(link['href'])
+#         page_s.getContent()
+#
+#     print("%d lines" % len(linkList))
+
+
+
+mongodb = mongodb_driver.ConnectDatabase()
+
 for theme in theme_url_list:
+
     t_spider = theme_spider.ThemeSpider(theme['href'],theme['judge'])
     linkList = t_spider.getLinkList()
     i = 0
     for link in linkList:
-        i += 1
-        print(i)
-        print("%s %s" % (link['title'] , link['href']))
         page_s = page_spider.PageSpider(link['href'])
-        page_s.getContent()
 
-    print("%d lines" % len(linkList))
+        newsData = page_s.getContent()
+        if newsData is not None:
+            i += 1
+            print("%d %s %s" % (i,theme['name'] , link['href']))
+            mongodb.insertToDatabase(theme['name'],link['href'],newsData)
 
