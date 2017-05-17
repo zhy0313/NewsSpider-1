@@ -21,6 +21,7 @@ theme_url_list = [
     {'name': '公益',  'href': 'http://gongyi.ifeng.com/',                 'judge': "http://gongyi.ifeng.com/a/"},#15
     {'name': '旅游',  'href': 'http://travel.ifeng.com/',                 'judge': "http://travel.ifeng.com/a/"},#16
     {'name': '健康',  'href': 'http://fashion.ifeng.com/health/',         'judge': "http://fashion.ifeng.com/a/"},#17
+    {'name':'即时',   'href':"http://news.ifeng.com/listpage/11502/0/1/rtlist.shtml",'judge':"http://news.ifeng.com/a/\d+"},#18
     #{'name': '博客',  'href': 'http://blog.ifeng.com/',                   'judge': "http://blog.ifeng.com/article/"},#18
     #{'name':'汽车',   'href':'http://auto.ifeng.com/',                    'judge':"http://auto.ifeng.com/[0-9a-zA-Z\_/]*/\d+.shtml"},#19
 ]
@@ -37,6 +38,20 @@ theme_url_list = [
 #         page_s.getContent()
 #
 #     print("%d lines" % len(linkList))
+
+# t_spider = theme_spider.ThemeSpider(theme_url_list[18]['href'],theme_url_list[18]['judge'])
+# linkList = t_spider.getLinkList()
+# i = 0
+# for link in linkList:
+#     i += 1
+#     print(i)
+#     print("%s %s" % (link['title'], link['href']))
+#     page_s = page_spider.PageSpider(link['href'])
+#     data = page_s.getContent()
+#     print('title: ' + data['title'])
+#     print('datetime: ' + data['datetime'])
+#     for c in data['content']:
+#         print("%s %s" % (c[0], c[1]))
 
 
 
