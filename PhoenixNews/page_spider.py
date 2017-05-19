@@ -36,6 +36,9 @@ class PageSpider(object):
                     # a = con.get('style',None)
                     conclass = con.get('class',None)
                     if img != None:
+                        text = con.text.strip()
+                        if len(text) > 0:
+                            contents.append(['p', text])
                         contents.append(['img', img['src']])
                     #正文
                     elif con.strong is not None:
@@ -86,6 +89,9 @@ class PageSpider(object):
                 for con in soup_contents:
                     img = con.find('img')
                     if img is not None:
+                        text = con.text.strip()
+                        if len(text) > 0:
+                            contents.append(['p', text])
                         contents.append(['img',img['src']])
                     elif con.strong is not None:
                         text = con.text.strip()

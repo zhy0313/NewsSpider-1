@@ -53,8 +53,8 @@ theme_url_list = [
 #     for c in data['content']:
 #         print("%s %s" % (c[0], c[1]))
 
-# page_s = page_spider.PageSpider("http://news.ifeng.com/a/20170519/51122673_0.shtml")
-# data = page_s.getContent
+# page_s = page_spider.PageSpider("http://fashion.ifeng.com/a/20170519/40246533_0.shtml")
+# data = page_s.getContent()
 
 
 
