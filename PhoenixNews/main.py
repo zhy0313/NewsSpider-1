@@ -3,6 +3,7 @@ from PhoenixNews import page_spider
 from PhoenixNews import mongodb_driver
 
 theme_url_list = [
+    {'name':'即时',   'href':"http://news.ifeng.com/listpage/11502/0/1/rtlist.shtml",'judge':"http://news.ifeng.com/a/\d+"},#18
     {'name':'大陆',   'href':"http://news.ifeng.com/mainland/",           'judge':"http://news.ifeng.com/a/\d+" },#0
     {'name':'国际',   'href':"http://news.ifeng.com/world/",              'judge':"http://news.ifeng.com/a/\d+"},#1
     {'name':'台湾',   'href':"http://news.ifeng.com/taiwan/",             'judge':"http://news.ifeng.com/a/\d+"},#2
@@ -21,7 +22,6 @@ theme_url_list = [
     {'name': '公益',  'href': 'http://gongyi.ifeng.com/',                 'judge': "http://gongyi.ifeng.com/a/"},#15
     {'name': '旅游',  'href': 'http://travel.ifeng.com/',                 'judge': "http://travel.ifeng.com/a/"},#16
     {'name': '健康',  'href': 'http://fashion.ifeng.com/health/',         'judge': "http://fashion.ifeng.com/a/"},#17
-    {'name':'即时',   'href':"http://news.ifeng.com/listpage/11502/0/1/rtlist.shtml",'judge':"http://news.ifeng.com/a/\d+"},#18
     #{'name': '博客',  'href': 'http://blog.ifeng.com/',                   'judge': "http://blog.ifeng.com/article/"},#18
     #{'name':'汽车',   'href':'http://auto.ifeng.com/',                    'judge':"http://auto.ifeng.com/[0-9a-zA-Z\_/]*/\d+.shtml"},#19
 ]
@@ -52,6 +52,9 @@ theme_url_list = [
 #     print('datetime: ' + data['datetime'])
 #     for c in data['content']:
 #         print("%s %s" % (c[0], c[1]))
+
+# page_s = page_spider.PageSpider("http://news.ifeng.com/a/20170519/51122673_0.shtml")
+# data = page_s.getContent
 
 
 

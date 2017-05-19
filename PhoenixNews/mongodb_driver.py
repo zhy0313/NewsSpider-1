@@ -10,5 +10,12 @@ class ConnectDatabase(object):
         print(newsData['title'])
         print(newsData['datetime'])
         if newsData['title'] is not None and newsData['datetime'] is not None and len(newsData['content']) > 0:
+            isReturn = True
+            for con in newsData['content']:
+                if con[0] == 'p' or con[0] == 'strong':
+                    isReturn = False
+                    break
+            if isReturn:
+                return
             self.news.insert({'type':type,'href':href,'title':newsData['title'], 'datetime':newsData['datetime'],
                               'content':newsData['content']})

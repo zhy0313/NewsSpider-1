@@ -6,6 +6,7 @@ class PageSpider(object):
     def __init__(self, page_url):
         self.page_url = page_url
 
+    # @property
     def getContent(self):
         try:
             response = request.urlopen(self.page_url)
@@ -32,13 +33,19 @@ class PageSpider(object):
                 for con in soup_contents:
                     img = con.find('img')
                     #图片
-                    if(img != None):
+                    # a = con.get('style',None)
+                    conclass = con.get('class',None)
+                    if img != None:
                         contents.append(['img', img['src']])
                     #正文
                     elif con.strong is not None:
-                        contents.append(['strong', con.text.strip()])
+                        text = con.text.strip()
+                        if len(text) > 0:
+                            contents.append(['strong', text])
                     else:
-                        contents.append(['p', con.text.strip()])
+                        text = con.text.strip()
+                        if len(text) > 0:
+                            contents.append(['p', text])
 
                 # print('title: ' + title)
                 # print('datetime: ' + datetime)
@@ -55,16 +62,19 @@ class PageSpider(object):
                 head = soup.find('head')
                 #获取解说文字
                 p = head.find('meta',itemprop = 'description')['content']
-                #获取图片
-                img = head.find('meta',itemprop = 'image')['content']
+                if len(p) > 0:
+                    #获取图片
+                    img = head.find('meta',itemprop = 'image')['content']
 
-                contents = [['img', img], ['p', p]]
-                # print('title: ' + title)
-                # print('datetime: ' + datetime)
-                # for c in contents:
-                #     print("%s %s" % (c[0], c[1]))
+                    contents = [['img', img], ['p', p]]
+                    # print('title: ' + title)
+                    # print('datetime: ' + datetime)
+                    # for c in contents:
+                    #     print("%s %s" % (c[0], c[1]))
 
-                return {'title': title, 'datetime': datetime, 'content': contents}
+                    return {'title': title, 'datetime': datetime, 'content': contents}
+                else:
+                    return None
             elif head3 is not None:
                 #标题
                 title = head3.find('h1').text
@@ -78,12 +88,16 @@ class PageSpider(object):
                     if img is not None:
                         contents.append(['img',img['src']])
                     elif con.strong is not None:
-                        contents.append(['strong',con.text.strip()])
+                        text = con.text.strip()
+                        if len(text) > 0:
+                            contents.append(['strong',text])
                     else:
-                        contents.append(['p',con.text.strip()])
+                        text = con.text.strip()
+                        if len(text) > 0:
+                            contents.append(['p',text])
                 return {'title':title, 'datetime':datetime, 'content':contents}
             else :
                 return None
         except:
-            print("Something wrong!")
+            print("Something wrog")
             return None

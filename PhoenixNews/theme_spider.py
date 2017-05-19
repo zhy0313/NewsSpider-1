@@ -31,14 +31,14 @@ class ThemeSpider(object):
                 if link.get('title',None) != None and link['title'] != '评论':
                     if len(link['title'].strip()) > 0:
                         linkList.append({'title':link['title'].strip(), 'href':link['href'].strip()})
-                        linkSet.add(link['href'])
                 elif link.get('class',None) != None:
                     #排除掉网站上评论部分按钮的链接
                     if link['class'][0] != 'pinl' and l > 0:
                         linkList.append({'title':link.text.strip(),'href':link['href'].strip() })
-                        linkSet.add(link['href'])
+                        # linkSet.add(link['href'])
                 elif l > 0:
                     linkList.append({'title': link.text.strip(), 'href': link['href'].strip()})
-                    linkSet.add(link['href'])
+                    # linkSet.add(link['href'])
+                linkSet.add(link['href'])
 
         return linkList
